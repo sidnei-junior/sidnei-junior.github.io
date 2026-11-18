@@ -1,112 +1,113 @@
-import { Cover } from './components/Cover'
-import { SkyBackground } from './components/SkyBackground'
-import {
-  contacts,
-  education,
-  experience,
-  GITHUB_URL,
-  LEARNING_MAP_URL,
-  profile,
-  projects,
-  stack,
-  type Role,
-} from './data/profile'
+import { contacts, experience, LEARNING_MAP, profile, projects, stack } from './data/profile'
 
-const NIGHT_LINK = (
-  <a className="pixel-btn pixel-btn--night" href={LEARNING_MAP_URL} title="Ir para o learning map">
-    🌙 ver a noite
-  </a>
-)
+const YEAR = new Date().getFullYear()
 
-function Timeline({ items }: { items: Role[] }) {
+function MapButton({ className = '' }: { className?: string }) {
   return (
-    <ol className="timeline">
-      {items.map((r) => (
-        <li key={r.period + r.title}>
-          <time>{r.period}</time>
-          <div>
-            <strong>{r.title}</strong>
-            {r.place && <span>{r.place}</span>}
-          </div>
-        </li>
-      ))}
-    </ol>
+    <a className={`map-btn ${className}`} href={LEARNING_MAP.href}>
+      ☾ {LEARNING_MAP.label}
+    </a>
+  )
+}
+
+function SectionLabel({ n, children }: { n: string; children: string }) {
+  return (
+    <h2 className="section__label mono">
+      <b className="neon-text">({n})</b> {children}
+    </h2>
   )
 }
 
 export default function App() {
   return (
-    <>
-      <SkyBackground />
-
-      <header className="topbar">
-        <a className="topbar__brand" href="#inicio">
-          ☀ sidnei<span className="ink--cyan">.jr</span>
+    <div className="wrap">
+      <header className="header">
+        <a className="mono header__brand" href="#inicio">
+          Sidnei Jr — Portfólio
         </a>
-        <nav className="topbar__nav" aria-label="Seções">
-          <a href="#sobre">sobre</a>
-          <a href="#projetos">projetos</a>
-          <a href="#stack">stack</a>
-          <a href="#experiencia">experiência</a>
-          <a href="#contato">contato</a>
+        <nav className="header__nav mono" aria-label="Seções">
+          <a href="#projetos">Projetos</a>
+          <a href="#stack">Stack</a>
+          <a href="#experiencia">Experiência</a>
+          <a href="#contato">Contato</a>
+          <MapButton />
         </nav>
-        {NIGHT_LINK}
       </header>
 
-      <main className="page">
-        <Cover />
+      <main>
+        <div className="hero" id="inicio">
+          <h1>
+            {profile.name}
+            <span className="hero__dot">.</span>
+            <br />
+            <span className="hero__headline">{profile.headline}</span>
+          </h1>
 
-        <section className="section" id="sobre">
-          <h2 className="sign sign--pink">sobre</h2>
-          <div className="panel about">
-            {profile.about.map((p) => (
-              <p key={p}>{p}</p>
-            ))}
+          <figure className="cover">
+            <div className="scene">
+              <span className="scene__sign scene__sign--left">☀ dia</span>
+              <span className="scene__sign">● open</span>
+              <img
+                src="/cover-day.jpg"
+                width={1585}
+                height={992}
+                alt="Pixel art: Sidnei estudando de manhã, com fones, café e sol entrando pela janela"
+              />
+            </div>
+            <figcaption className="mono">
+              <span>{profile.caption[0]}</span>
+              <span>{profile.caption[1]}</span>
+            </figcaption>
+          </figure>
+
+          <div className="hero__row">
+            <p className="hero__lead">{profile.lead}</p>
+            <p className="mono hero__status">
+              <i aria-hidden="true" /> {profile.status}
+            </p>
+            <div className="hero__btns">
+              <a className="btn btn--fill" href="#projetos">
+                Ver projetos ↓
+              </a>
+              <MapButton className="btn" />
+            </div>
           </div>
-        </section>
+        </div>
 
         <section className="section" id="projetos">
-          <h2 className="sign sign--cyan">projetos</h2>
-          <div className="grid">
+          <SectionLabel n="01">Projetos selecionados</SectionLabel>
+          <div className="projects">
             {projects.map((p) => (
-              <article key={p.name} className={`card frame--${p.color}`}>
-                {p.badge && <span className="card__badge">{p.badge}</span>}
-                <h3>{p.name}</h3>
-                <p>{p.description}</p>
-                <ul className="tags">
-                  {p.tags.map((t) => (
-                    <li key={t}>#{t}</li>
-                  ))}
-                </ul>
-                <div className="card__actions">
-                  {p.live && (
-                    <a className="pixel-btn" href={p.live} target="_blank" rel="noreferrer">
-                      ao vivo ▸
+              <article key={p.name} className="project">
+                <div>
+                  <span className="mono">{p.tags.join(' · ')}</span>
+                  <h3>{p.name}</h3>
+                  <p>{p.description}</p>
+                </div>
+                <div className="project__links mono">
+                  {p.live ? (
+                    <a href={p.live} target="_blank" rel="noreferrer">
+                      Ao vivo ↗
                     </a>
+                  ) : (
+                    <span />
                   )}
-                  <a className="pixel-btn pixel-btn--ghost" href={p.repo} target="_blank" rel="noreferrer">
-                    código
+                  <a href={p.repo} target="_blank" rel="noreferrer">
+                    Código
                   </a>
                 </div>
               </article>
             ))}
           </div>
-          <p className="section__more">
-            Tem mais coisa no{' '}
-            <a href={GITHUB_URL} target="_blank" rel="noreferrer">
-              meu GitHub
-            </a>
-            .
-          </p>
         </section>
 
         <section className="section" id="stack">
-          <h2 className="sign sign--lime">stack</h2>
-          <div className="grid grid--stack">
+          <SectionLabel n="02">Stack</SectionLabel>
+          <div className="stack">
             {stack.map((g) => (
-              <div key={g.title} className={`panel stack frame--${g.color}`}>
-                <h3>{g.title}</h3>
-                <ul className="chips">
+              <div key={g.title}>
+                <h3 className="mono">{g.title}</h3>
+                <ul>
                   {g.items.map((i) => (
                     <li key={i}>{i}</li>
                   ))}
@@ -117,28 +118,25 @@ export default function App() {
         </section>
 
         <section className="section" id="experiencia">
-          <h2 className="sign sign--amber">experiência</h2>
-          <div className="grid grid--two">
-            <div className="panel">
-              <h3>carreira</h3>
-              <Timeline items={experience} />
-            </div>
-            <div className="panel">
-              <h3>formação</h3>
-              <Timeline items={education} />
-              <p className="panel__extra">🏅 Medalhista da OBMEP</p>
-            </div>
-          </div>
+          <SectionLabel n="03">Experiência</SectionLabel>
+          <ol className="rows">
+            {experience.map((r) => (
+              <li key={r.title}>
+                <span className="mono">{r.period}</span>
+                <span>{r.title}</span>
+              </li>
+            ))}
+          </ol>
         </section>
 
         <section className="section" id="contato">
-          <h2 className="sign sign--violet">contato</h2>
-          <div className="panel contact">
-            <p>Estou aberto a novas oportunidades, remoto ou híbrido. Bora conversar?</p>
+          <SectionLabel n="04">Contato</SectionLabel>
+          <div className="contact">
+            <p>Aberto a novas oportunidades, remoto ou híbrido. Bora conversar?</p>
             <div className="contact__links">
               {contacts.map((c) => (
-                <a key={c.label} className="pixel-btn" href={c.href} target="_blank" rel="noreferrer">
-                  {c.label}
+                <a key={c.label} className="btn" href={c.href} target="_blank" rel="noreferrer">
+                  {c.label} ↗
                 </a>
               ))}
             </div>
@@ -146,12 +144,10 @@ export default function App() {
         </section>
       </main>
 
-      <footer className="footer">
-        <p>
-          ☀ de dia, o que já foi entregue. À noite, debaixo de chuva, o que ainda estou aprendendo.
-        </p>
-        {NIGHT_LINK}
+      <footer className="footer mono">
+        <span>Sidnei Jr · {YEAR}</span>
+        <MapButton />
       </footer>
-    </>
+    </div>
   )
 }

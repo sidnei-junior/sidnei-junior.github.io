@@ -1,26 +1,19 @@
-export type Neon = 'pink' | 'cyan' | 'amber' | 'lime' | 'violet'
-
 export interface Project {
   name: string
   description: string
   tags: string[]
-  color: Neon
   repo: string
   live?: string
-  /** Shown as a small sticker on the card. */
-  badge?: string
 }
 
 export interface StackGroup {
   title: string
-  color: Neon
   items: string[]
 }
 
 export interface Role {
   period: string
   title: string
-  place?: string
 }
 
 export interface Contact {
@@ -28,83 +21,63 @@ export interface Contact {
   href: string
 }
 
-export const LEARNING_MAP_URL = 'https://personal-learning-map.vercel.app/'
-export const GITHUB_URL = 'https://github.com/sidnei-junior'
+export const LEARNING_MAP = {
+  label: 'Mapa pessoal de aprendizados',
+  href: 'https://personal-learning-map.vercel.app/',
+}
 
 export const profile = {
   name: 'Sidnei Jr',
-  role: 'Engenheiro de Software Fullstack',
-  focus: 'com pegada backend · Go · TypeScript · Python',
-  about: [
-    'Quase 7 anos construindo software, do estágio no frontend até APIs, integrações e pipelines de dados no backend.',
-    'Gosto de Clean Architecture, SOLID, TDD e código bem testado. Uso React quando o projeto pede.',
-    'Engenheiro Mecatrônico pela UFRN, técnico em Informática pelo IFRN e medalhista da OBMEP.',
-  ],
+  headline: 'Fullstack, backend-first.',
+  lead: 'Quase 7 anos construindo APIs, integrações e pipelines de dados em Go, TypeScript e Python.',
+  status: 'Open to work · remoto ou híbrido',
+  caption: ['☀ 08:14 · café passado, janela aberta', 'à noite, chove ☾'],
 }
 
 export const projects: Project[] = [
   {
     name: 'clone-tabnews-ai',
-    description:
-      'Implementação do TabNews para o curso.dev, construída com a ajuda de agentes de IA.',
-    tags: ['JavaScript', 'Next.js', 'Agentes de IA'],
-    color: 'cyan',
+    description: 'Implementação do TabNews para o curso.dev, construída com agentes de IA.',
+    tags: ['Next.js', 'IA'],
     repo: 'https://github.com/sidnei-junior/clone-tabnews-ai',
     live: 'https://clone-tabnews-ai-two.vercel.app/',
   },
   {
     name: 'who-has-my-book',
-    description:
-      'App pra controlar os livros que eu empresto: cadastro com capas, amigos, empréstimos com prazo e histórico. Cada amigo recebe um link próprio.',
-    tags: ['Go', 'PostgreSQL', 'Next.js', 'Tailwind'],
-    color: 'amber',
+    description: 'Controle dos livros que eu empresto: capas, amigos, prazos e histórico.',
+    tags: ['Go', 'PostgreSQL', 'Next.js'],
     repo: 'https://github.com/sidnei-junior/who-has-my-book',
   },
   {
     name: 'keep-card',
-    description:
-      'Monorepo de um cartão fidelidade: registra compras recorrentes e libera o resgate de benefícios, numa arquitetura orientada a eventos.',
-    tags: ['Go', 'Event-driven', 'Monorepo'],
-    color: 'lime',
+    description: 'Cartão fidelidade com compras recorrentes e resgate de benefícios.',
+    tags: ['Go', 'Event-driven'],
     repo: 'https://github.com/sidnei-junior/keep-card',
   },
   {
     name: 'personal-learning-map',
-    description:
-      'Meu diário de estudos em canvas: pixel art, placas neon e chuva. É a versão noturna deste site.',
-    tags: ['React', 'TypeScript', 'Canvas', 'Pixel art'],
-    color: 'violet',
+    description: 'Meu diário de estudos em pixel art, neon e chuva. A versão noturna deste site.',
+    tags: ['React', 'Canvas', '☾'],
     repo: 'https://github.com/sidnei-junior/personal-learning-map',
-    live: LEARNING_MAP_URL,
-    badge: '🌙 noite',
+    live: LEARNING_MAP.href,
   },
 ]
 
 export const stack: StackGroup[] = [
-  { title: 'Linguagens', color: 'lime', items: ['Go', 'TypeScript', 'Python', 'JavaScript'] },
-  { title: 'Backend', color: 'violet', items: ['Node.js', 'APIs REST', 'gRPC', 'Microsserviços', 'Docker'] },
-  { title: 'Frontend', color: 'cyan', items: ['React', 'React Query', 'Tailwind CSS', 'Next.js'] },
-  { title: 'Dados', color: 'pink', items: ['PostgreSQL', 'MongoDB'] },
-  { title: 'Qualidade & ferramentas', color: 'amber', items: ['Jest', 'Vitest', 'TDD', 'GitHub Actions', 'Claude Code'] },
+  { title: 'Linguagens', items: ['Go', 'TypeScript', 'Python'] },
+  { title: 'Backend', items: ['Node.js', 'gRPC · REST', 'Docker'] },
+  { title: 'Frontend', items: ['React', 'React Query', 'Tailwind'] },
+  { title: 'Dados & testes', items: ['PostgreSQL', 'MongoDB', 'Jest · TDD'] },
 ]
 
 export const experience: Role[] = [
   { period: '2023 – 2026', title: 'Engenheiro de Software Fullstack Pleno II' },
-  { period: '2022', title: 'Desenvolvedor Frontend Pleno I' },
-  { period: '2021', title: 'Desenvolvedor Frontend Júnior' },
-  { period: '2020', title: 'Estagiário de Frontend' },
-  { period: '2018 – 2019', title: 'Diretor de Projetos', place: 'Include Engenharia · Empresa Júnior UFRN' },
-]
-
-export const education: Role[] = [
-  { period: '2018 – 2022', title: 'Bacharel em Engenharia Mecatrônica', place: 'UFRN' },
-  { period: '2015 – 2017', title: 'Bacharel em Ciências e Tecnologia', place: 'UFRN' },
-  { period: '2011 – 2014', title: 'Técnico em Informática (integrado)', place: 'IFRN' },
+  { period: '2020 – 2022', title: 'Estágio → Desenvolvedor Frontend Pleno I' },
+  { period: '2018 – 2022', title: 'Engenharia Mecatrônica · UFRN' },
 ]
 
 export const contacts: Contact[] = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/sidneijr/' },
-  { label: 'GitHub', href: GITHUB_URL },
+  { label: 'GitHub', href: 'https://github.com/sidnei-junior' },
   { label: 'E-mail', href: 'mailto:sidnei.ifrn@gmail.com' },
-  { label: 'Learning map', href: LEARNING_MAP_URL },
 ]
